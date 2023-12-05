@@ -13,4 +13,6 @@ fast_api_revrstr.py -- reverse the string typed to textbox
         ("  --uvicorn_run         run fastapi uvicorn server.")
 
 
+Run local server and type... 
 
+Note: Json data on web is plain
