@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Input</title>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 50px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Enter a Number</h1>
+    <div>
+        <div>
+            <input type="number" id="numberInput" placeholder="Type a number">
+            <button id="fetchButton" onclick="getUserResponse()">Fetch from API</button>
+        </div>
+        <h3>Json Data</h3>
+        <div id="output">
+            <p id="jsondata"></p>
+        </div>
+    </div>
+    <script>
+        function getUserResponse() {
+            var userText = $('#numberInput').val();
+
+            // Send request to FastAPI
+            // send a GET request to the server hosting the website associated with that URL.
+            $.get("/from_db.json", { msg: userText }).done(function (data) { 
+            // Shorthand AJAX function that sends a GET request to the “/get” endpoint of your server.  
+            // It sends an object { msg: userText } as data with the request, where userText is a variable that contain text user entered.
+    
+            // A callback function that is executed when the server successfully responds to the request. The server’s response is passed into this function as the ""data"" parameter.
+                var jsondata = data.response;
+                
+
+            // Convert JSON object to a string
+                var jsonString = JSON.stringify(jsondata, null, 2);
+                console.log(jsondata)
+            //data.response -- accessing the response property of the data object  the result returned from an AJAX request or API call.
+                $('#jsondata').text(jsonString);
+            });
+        }
+    </script>
+</body>
+
+</html>

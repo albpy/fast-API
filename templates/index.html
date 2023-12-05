@@ -1,0 +1,76 @@
+<!--AJAX stands for Asynchronous JavaScript and XML. It is a set of web development techniques 
+                
+            - using many web technologies on the client-side to create asynchronous web applications.--> 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Reverser</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
+    <style>
+        body {display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #fff;}
+        div {text-align: center; padding: 20px; border: 2px solid #ddd; border-radius: 10px;}
+        button {background: #007bff; color: #fff; border: none; padding: 10px; border-radius: 5px; cursor: pointer; transition: background 0.3s ease;}
+        button:hover {background: #0056b3;}
+        #reversedText {font-style: italic; color: #e53935; margin: 0;}
+    </style>
+    
+    
+</head>
+
+<body>
+
+    <h1>Text Reverser</h1>
+    <div>
+        <div>
+            <label for="textInput">Enter Text:</label>
+            <input type="text" id="textInput" placeholder="Type something...">
+            <button id="buttonInput" onclick="getUserResponse()">Reverse</button>
+            <!--When you click the button, function getUserResponse() will
+                            |__send a GET request to the server hosting the website associated with that URL.--> 
+        </div>
+        <h3>Reversed Text:</h3>
+        <div id="output">
+            <p id="reversedText"></p>
+        </div>
+    </div>
+
+    <script>
+        function getUserResponse() {
+            var userText = $('#textInput').val();
+
+            // Send request to FastAPI
+            // send a GET request to the server hosting the website associated with that URL.
+            $.get("/get", { msg: userText }).done(function (data) { 
+            // Shorthand AJAX function that sends a GET request to the “/get” endpoint of your server.  
+            // It sends an object { msg: userText } as data with the request, where userText is a variable that contain text user entered.
+    
+            // A callback function that is executed when the server successfully responds to the request. The server’s response is passed into this function as the ""data"" parameter.
+                var reversedText = data.response;
+            //data.response -- accessing the response property of the data object  the result returned from an AJAX request or API call.
+                $('#reversedText').text(reversedText);
+            });
+        }
+    </script>
+
+</body>
+
+</html>
+
+<!--When you enter a URL into your browser and hit enter, the browser 
+            |__sends a GET request to the server hosting the website associated with that URL.--> 
+
+<!-- An AJAX request is a way for JavaScript to communicate with the server. It allows to send and receive data 
+    (in various formats such as HTML, JSON, XML) asynchronously without having to refresh the page. 
+    AJAX requests can be made using various methods such as fetch(), axios, or jQuery’s $.ajax(), $.get(), $.post(), etc. in javascript-->
+
+<!-- An API (Application Programming Interface) call, on the other hand, is a request sent to a server using a predefined set of rules. 
+    The server responds with the requested data which is then used in the application. 
+    API calls can be made in many ways, and AJAX is one of them. -->
+
+<!-- An API call can be made using an AJAX request, but not all AJAX requests are API calls. 
+    For example, you might use AJAX to load a portion of your website without having to refresh the entire page.  -->
